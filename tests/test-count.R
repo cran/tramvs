@@ -1,25 +1,22 @@
-# Demo cotram
+# Demo count / sparse
 
 # Windows diffs...
 old <- options(digits = 3)
 
 set.seed(24101968)
-library(tramvs)
-library(cotram)
+suppressMessages(library(tramvs))
 
-data("birds", package = "TH.data")
-birds$noise <- rnorm(nrow(birds), sd = 10)
+N <- 1e2
+P <- 5
+nz <- 3
+beta <- rep(c(1, 0), c(nz, P - nz))
+X <- matrix(abs(rnorm(N * P)), nrow = N, ncol = P)
+Y <- as.integer(1 + X %*% beta + abs(rnorm(N)))
 
-# Estimate support sice via HBIC
-res <- tramvs(SG5 ~ AOT + AFS + GST + DBH + DWC + LOG + noise, data = birds,
-              modFUN = cotram)
-plot(res, type = "b")
-plot(res, which = "path")
+dat <- data.frame(y = Y, x = X)
+res <- cotramVS(y ~ ., data = dat)
 
 # Active set
 support(res)
-coef(res, best_only = TRUE)
-coef(res, best_only = FALSE, with_baseline = TRUE)
-coef(res, best_only = TRUE, with_baseline = TRUE)
 
 options(old)

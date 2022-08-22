@@ -60,4 +60,4 @@ noise       .      .    -0.159
 > 
 > proc.time()
    user  system elapsed 
-  1.766   0.091   1.851 
+  2.351   0.045   2.386 
