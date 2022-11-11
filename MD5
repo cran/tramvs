@@ -1,12 +1,12 @@
-81cd137ba6903ceeb2e4a68ae5164525 *DESCRIPTION
+882eb8eb3545b4d22b9a930e12efe2b5 *DESCRIPTION
 4963aebf60c5e46bc3c51804f756509b *NAMESPACE
 57cb91523b581a681b225501b578c3a3 *R/methods.R
 5cfaa3c2c500d2d96cb2f70a0b8d5e82 *R/models.R
 1d41f27cdca799dd0e77a0249cf04da5 *R/tramvs.R
 30368e11ebc9dc593b0190a475c4d5c7 *build/vignette.rds
 5fe18e630f831530e6bbec4d6b427ce9 *inst/doc/tramvs.R
-8da8fb0dae19695ca1b96a3d94c00f27 *inst/doc/tramvs.Rnw
-455aac905cf98735e301b51bcdfac98e *inst/doc/tramvs.pdf
+71a62e57fdbe618c16666ead90ec4426 *inst/doc/tramvs.Rnw
+a737029e7070e1cc91a648978c80386a *inst/doc/tramvs.pdf
 e198ac7bfcbf78ab15aed25b5d836ff2 *man/AIC.tramvs.Rd
 e330206dba3f168079722b00771c69a3 *man/BoxCoxVS.Rd
 0bd4bb87b193cccfb4b6de9feffd9719 *man/ColrVS.Rd
@@ -47,6 +47,6 @@ ed4483a576af23c2b516f41d192d51bc *tests/test-survival.R
 4e96aa74f0c6a9977023e299415b3fcf *tests/test-survival.Rout.save
 20ab152f2ea1d2112de2a74e005ee0e6 *tests/test-weibull.R
 f8bc6c2a8ad6be7aefe3a18bcca3991b *tests/test-weibull.Rout.save
-518638f2b74da97b59d69bcb6bd57da9 *vignettes/bibliography.bib
+5d55a4e2b3ac343f0f2a5cd829e9fd15 *vignettes/bibliography.bib
 987a1c223ba922e19b9b53847ce7355c *vignettes/defs.tex
-8da8fb0dae19695ca1b96a3d94c00f27 *vignettes/tramvs.Rnw
+71a62e57fdbe618c16666ead90ec4426 *vignettes/tramvs.Rnw
