@@ -143,8 +143,13 @@ cor_init.stram <- function(m0, mb) {
 #' Select optimal subset based on high dimensional BIC
 #'
 #' @inheritParams abess_tram
+#' @inheritDotParams abess_tram
 #' @param supp_max maximum support which to call \code{abess_tram} with.
 #' @param verbose show progress bar (default: \code{TRUE})
+#' @param parallel toggle for parallel computing via
+#'     \code{\link[future.apply]{future_lapply}}
+#' @param future_args arguments passed to \code{\link[future]{plan}}; defaults
+#'     to a \code{"multisession"} with \code{supp_max} workers
 #'
 #' @details L0-penalized (i.e., best subset selection) transformation models
 #'     using the abess algorithm.
@@ -155,7 +160,7 @@ cor_init.stram <- function(m0, mb) {
 #'
 #' @examples
 #' set.seed(24101968)
-#' library(tramvs)
+#' library("tramvs")
 #'
 #' N <- 1e2
 #' P <- 5
@@ -166,35 +171,50 @@ cor_init.stram <- function(m0, mb) {
 #'
 #' dat <- data.frame(y = Y, x = X)
 #' res <- tramvs(y ~ ., data = dat, modFUN = Lm)
-#' plot(res, type = "s")
+#' plot(res, type = "b")
 #' plot(res, which = "path")
 #'
 #' @importFrom methods as
 #' @importFrom utils txtProgressBar setTxtProgressBar
+#' @importFrom future.apply future_lapply
+#' @importFrom future plan
 #' @export
 tramvs <- function(formula, data, modFUN, mandatory = NULL, supp_max = NULL,
                    k_max = NULL, thresh = NULL, init = TRUE, m_max = 10,
-                   m0 = NULL, verbose = TRUE, ...) {
+                   m0 = NULL, verbose = TRUE, parallel = FALSE,
+                   future_args = list(strategy = "multisession",
+                                      workers = supp_max), ...) {
   if (is.null(supp_max)) {
     m0 <- modFUN(formula, data, ... = ...)
     supp_max <- length(coef(m0))
   }
 
-  fits <- list()
-  SIC <- numeric(supp_max)
-  if (verbose & interactive())
+  if (verbose & interactive() & !parallel)
     pb <- txtProgressBar(style = 3, width = 50, min = 0, max = supp_max)
-  for (ts in seq_len(supp_max)) {
+
+  if (parallel) {
+    do.call(plan, future_args)
+    this.lapply <- \(...) future_lapply(..., future.seed = TRUE)
+  } else {
+    this.lapply <- lapply
+  }
+
+  res <- this.lapply(seq_len(supp_max), \(ts) {
     if (verbose & interactive())
       setTxtProgressBar(pb, ts)
     fit <- abess_tram(formula = formula, data = data, modFUN = modFUN,
                       mandatory = mandatory, supp = ts, k_max = k_max,
                       thresh = thresh, init = init, m_max = m_max, m0 = m0,
                       ... = ...)
-    fits[[ts]] <- fit
-    SIC[ts] <- -logLik(fit$m) + length(fit$A) * log(length(coef(fit$m))) *
-      log(log(nrow(fit$m$data)))
-  }
+    list(
+      fit = fit,
+      SIC = -logLik(fit$m) + length(fit$A) * log(length(coef(fit$m))) *
+        log(log(nrow(fit$m$data)))
+    )
+  })
+
+  fits <- lapply(res, \(x) x[[1]])
+  SIC <- unlist(lapply(res, \(x) x[[2]]))
 
   traj <- as(do.call("cbind", lapply(fits, coef, ... = ...)), "sparseMatrix")
   colnames(traj) <- seq_len(supp_max)
@@ -227,27 +247,27 @@ tramvs <- function(formula, data, modFUN, mandatory = NULL, supp_max = NULL,
   cfI <- cfs[names(cfs) %in% I0]
 
   bwd_sacrifice <- sapply(seq_along(cfA), \(parm) {
-    ncfs <- cfs
-    ncfs[parm] <- 0
+    ncfs <- c(cfA[parm], cfI)
+    ncfs[1] <- 0
     m_retrained <- modFUN(formula, data, fixed = ncfs,
                           theta = theta_init[!names(theta_init) %in% names(ncfs)],
                           ... = ...)
     nll_wo <- - logLik(m_retrained) / nrow(m$data)
-    nll_wo - L
+    structure(L - nll_wo, names = names(cfA)[parm])
   })
 
   fwd_sacrifice <- sapply(seq_along(cfI), \(parm) {
-    ncfs <- cfs[-parm]
+    ncfs <- c(cfI[-parm], cfA)
     m_retrained <- modFUN(formula, data, fixed = ncfs,
                           theta = theta_init[!names(theta_init) %in% names(ncfs)],
                           ... = ...)
     nll_wo <- - logLik(m_retrained) / nrow(m$data)
-    L - nll_wo
+    structure(nll_wo - L, names = names(cfI)[parm])
   })
 
   for (k in seq_len(k_max)) {
-    Ak <- ncfs[.ak_compute(bwd_sacrifice, k)]
-    Ik <- ncfs[.ik_compute(fwd_sacrifice, k)]
+    Ak <- A[.ak_compute(bwd_sacrifice, k)]
+    Ik <- I[.ik_compute(fwd_sacrifice, k)]
 
     newA <- sort(union(setdiff(A, Ak), Ik))
     if (!is.null(mcfs))
@@ -270,13 +290,14 @@ tramvs <- function(formula, data, modFUN, mandatory = NULL, supp_max = NULL,
       cf <- coef(newm, with_baseline = TRUE)
       cfs <- coef(newm)
       cfb <- cf0[!names(cf) %in% names(cfs)]
+      m <- newm
       L <- newL
       A <- newA
       I <- newI
     }
   }
 
-  if (L0 - L < thresh)
+  if (L0 - L > thresh)
     ret <- list(mod = m, A = A, I = I)
   else
     ret <- list(mod = m0, A = A0, I = I0)
