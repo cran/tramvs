@@ -1,13 +1,13 @@
-eef50eb3ad28ad337dc5bc4cf4814ca8 *DESCRIPTION
+fb67c497a2329756fc17755542748b1f *DESCRIPTION
 62d54f1c8f81d0716015cd1eeea0a312 *NAMESPACE
 021992892927d51c0c4493dcf0bc99d7 *R/methods.R
 3266f57418da6ec757f51b1fc5ab75fb *R/mmltvs.R
 69146008b98772aaf56e6527b6661525 *R/models.R
-45a5e5ff17d353a24af734ff262733f1 *R/tramvs.R
-ce51488bb75c82f67efa2dcfd9c82c83 *build/vignette.rds
+746af76fcf6ae1f1adeb454494322eb4 *R/tramvs.R
+d8dabffdaa712cba87b17831d6023e18 *build/vignette.rds
 b3a7c5b72ab4a6aebbce41dbab2b1022 *inst/doc/tramvs.R
 6fe81e1300c1ad6bd3018b7599e3a3a2 *inst/doc/tramvs.Rnw
-c0a67ede042a199a9cbb845882f6af92 *inst/doc/tramvs.pdf
+7702a4d60a3169881ef3a54a626c3225 *inst/doc/tramvs.pdf
 e198ac7bfcbf78ab15aed25b5d836ff2 *man/AIC.tramvs.Rd
 263acb428c0ed3c8594b6e4233c6aed0 *man/BoxCoxVS.Rd
 2faf9902153084dcb4555c7f59eb2770 *man/ColrVS.Rd
