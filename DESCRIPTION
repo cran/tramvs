@@ -1,7 +1,7 @@
 Package: tramvs
 Type: Package
 Title: Optimal Subset Selection for Transformation Models
-Version: 0.0-7
+Version: 0.0-8
 Authors@R: c(person("Lucas", "Kook", email = "lucasheinrich.kook@gmail.com", 
     role = c("aut", "cre"), comment = c(ORCID = "0000-0002-7546-7356")),
     person("Sandra", "Siegfried", role = "ctb"),
@@ -24,10 +24,10 @@ URL: http://ctm.R-forge.R-project.org
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2025-01-31 09:40:30 UTC; lkook
-Author: Lucas Kook [aut, cre] (<https://orcid.org/0000-0002-7546-7356>),
+Packaged: 2025-11-18 17:28:26 UTC; lkook
+Author: Lucas Kook [aut, cre] (ORCID: <https://orcid.org/0000-0002-7546-7356>),
   Sandra Siegfried [ctb],
   Torsten Hothorn [ctb]
 Maintainer: Lucas Kook <lucasheinrich.kook@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-01-31 10:10:02 UTC
+Date/Publication: 2025-11-18 18:00:02 UTC

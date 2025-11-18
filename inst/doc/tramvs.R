@@ -38,7 +38,7 @@ dat <- data.frame(y = Y, x = X)
 cont_res <- tramvs(y ~ ., data = dat, modFUN = Lm)
 
 ## ----tram11, results='hide', eval=abess_available-----------------------------
-res_abess <- abess(y ~ ., data = dat, family = "gaussian")
+res_abess <- abess(y ~ ., data = dat, family = "gaussian", num.threads = 2)
 
 ## ----tram2--------------------------------------------------------------------
 support(cont_res)
