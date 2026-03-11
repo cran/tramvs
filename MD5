@@ -1,4 +1,4 @@
-8b0953db44c25fac26b3f200489d01ce *DESCRIPTION
+d8a5e3530f8eb1050e4c939108877bc1 *DESCRIPTION
 62d54f1c8f81d0716015cd1eeea0a312 *NAMESPACE
 021992892927d51c0c4493dcf0bc99d7 *R/methods.R
 3266f57418da6ec757f51b1fc5ab75fb *R/mmltvs.R
@@ -8,7 +8,7 @@
 68c16f6cf5601c883873f7d2200bafa5 *build/vignette.rds
 75bc07c46b444b3bc85a74fa5552aec4 *inst/doc/tramvs.R
 b494bad68d109efe761339aefd713c18 *inst/doc/tramvs.Rnw
-d0945792b6ccdb8d7457a9f8fcaf70ba *inst/doc/tramvs.pdf
+88f8f3253436a3ef135babf5053e4c45 *inst/doc/tramvs.pdf
 e198ac7bfcbf78ab15aed25b5d836ff2 *man/AIC.tramvs.Rd
 263acb428c0ed3c8594b6e4233c6aed0 *man/BoxCoxVS.Rd
 2faf9902153084dcb4555c7f59eb2770 *man/ColrVS.Rd
@@ -47,6 +47,6 @@ fb9ec726c6f8ac6db525a8f27adbef5e *tests/testthat/test-ordinal.R
 ff73e0600d0262b4a8c980a276749745 *tests/testthat/test-shiftscale.R
 9024d98fa1dbdb4d9c4e9f3d198d40e3 *tests/testthat/test-survival.R
 a8f370a7e879c4729734dbbb95bfd0fb *tests/testthat/test-weibull.R
-5d55a4e2b3ac343f0f2a5cd829e9fd15 *vignettes/bibliography.bib
-69d6c28791e22d9d07f7ff9d6002a968 *vignettes/defs.tex
+600167ad26fe0f7bee5bfa1a11d1c765 *vignettes/bibliography.bib
+40286ea9bdbbe39a81e88d2d735bbf8f *vignettes/defs.tex
 b494bad68d109efe761339aefd713c18 *vignettes/tramvs.Rnw
